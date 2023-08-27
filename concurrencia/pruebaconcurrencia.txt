@@ -1,0 +1,13 @@
+formato:
+start
+join
+start
+join
+tardó: 23 seg
+
+formato:
+start
+start
+join
+join
+tardó: 22 seg
