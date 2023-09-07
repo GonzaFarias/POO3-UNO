@@ -1,76 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
-namespace servidor1
+namespace ClassLibrary1
 {
-
-    class tcpip
+    abstract class PatronComposite
     {
+        protected String nombre;
 
-        List<Thread> thread;
+        public PatronComposite()
+        { this.nombre = ""; }
 
-        public void escucha()
-        {
-            thread = new List<Thread>();
+        public PatronComposite(String nombre)
+        { this.nombre = nombre; }
 
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[1];
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
-            Socket listener = new Socket(ipAddress.AddressFamily,
-                SocketType.Stream, ProtocolType.Tcp);
-            listener.Bind(localEndPoint);
-            listener.Listen(100);
-            Socket cliente;
-            while (true)
-            {
-                cliente = listener.Accept();
-                Thread hilo = new Thread(disparaCliente);
-                hilo.Start(cliente);
-                thread.Add(hilo);
-            }
-        }
-
-        public void procesa1Cliente()
-        {
-        }
-
-        public void disparaCliente(Object o)
-        {
-            Socket param = (Socket)o;
-            byte[] enviar = Encoding.ASCII.GetBytes("Hola\n");
-            param.Send(enviar);
-            byte[] recibir = new byte[1];
-            string recibido = "";
-            param.Receive(recibir, 0);
-            while (recibir[0] != 13 && recibir[0] != 10)
-            {
-                recibido += char.ConvertFromUtf32(recibir[0]);
-                param.Receive(recibir, 0);
-            }
-            Console.WriteLine(recibido);
-            //Console.ReadKey();
-        }
-
+        abstract public void agregar(PatronComposite c);
+        abstract public void eliminar(PatronComposite c);
+        abstract public void mostrar(int profundidad);
     }
-
-    class Program
+    class Compuesto : PatronComposite
     {
 
+        private List<PatronComposite> hijo = new List<PatronComposite>();
 
+        public Compuesto() : base()
+        {
+            return;
+        }
+
+        public Compuesto(String nombre) : base(nombre)
+        { return ; }
+        public override void agregar(PatronComposite componente)
+        {
+            hijo.Add(componente);
+        }
+
+        public override void eliminar(PatronComposite componente)
+        {
+            hijo.Remove(componente);
+        }
+        public override void mostrar(int profundidad)
+        {
+            Console.WriteLine(nombre + " nivel: " + profundidad);
+            for (int i = 0; i < hijo.Count; i++)
+                hijo[i].mostrar(profundidad + 1);
+        }
+    }
+    class Hoja : PatronComposite
+    {
+
+        public Hoja() : base()
+        {
+            ;
+        }
+        public Hoja(String nombre) : base(nombre)
+        {
+        }
+        public override void agregar(PatronComposite c)
+        {
+            Console.WriteLine("no se puede agregar la hoja");
+        }
+        public override void eliminar(PatronComposite c)
+        {
+            Console.WriteLine("no se puede quitar la hoja");
+        }
+        public override void mostrar(int profundidad)
+        {
+            Console.WriteLine('-' + "" + nombre);
+        }
         static void Main(string[] args)
         {
-
-            tcpip escucha = new tcpip();
-            escucha.escucha();
-
+            Compuesto obj1 = new Compuesto();
+            Hoja obj2 = new Hoja();
         }
-
     }
+    
 }
