@@ -1,0 +1,36 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.bg-oscuro{
+    background-color: black;
+}
+
+body {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(89,9,121,1) 35%, rgba(87,0,255,1) 100%);
+}
+
+.bg-image {
+    background-image: url('https://a.storyblok.com/f/191466/1385x745/24d13cf0aa/web-development-trends-for-2023.png');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    text-align: center;
+    color: white;
+    padding: 0;
+}
+
+.sombra{
+    text-shadow: 1px 2px 10px black;
+}
