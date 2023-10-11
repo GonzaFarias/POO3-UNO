@@ -30,7 +30,8 @@ namespace WebApplication2.Models
             lasPersonas.Add(new Persona("Vargas", "Alejandra", 37));
             lasPersonas.Add(new Persona("Flores", "Diego", 28));
             lasPersonas.Add(new Persona("Ruiz", "Elena", 34));
-            return lasPersonas;
+			lasPersonas.Add(ObtenerPersona());
+			return lasPersonas;
         }
     }
     public class Persona(String inombre, String iapellido, int iedad)

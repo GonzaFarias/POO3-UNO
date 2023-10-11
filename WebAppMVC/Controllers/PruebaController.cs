@@ -13,7 +13,7 @@ namespace WebApplication2.Controllers
             _logger = logger;
         }
 
-        public IActionResult Vista1()
+        public IActionResult Informacion()
         {
             // ViewBag.usuario = "PEPE";
             return View();
