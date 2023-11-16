@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Admin - Gonndo Hotel</title>
+   
+    @Styles.Render("~/Content/css")
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        .dt-bootstrap4 {
+            font-size: 14px !important;
+        }
+
+        .card-footer {
+            border-top: 0px !important;
+        }
+
+        .fondo {
+            background: linear-gradient(to bottom, #004ed9, #63aeff);
+        }
+    </style>
+</head>
+<body id="page-top">
+    @{
+        ProyectoHotel.Models.Persona objeto = ((ProyectoHotel.Models.Persona)Session["Usuario"]);
+    }
+   
+    <div id="wrapper">
+        
+        <ul class="navbar-nav fondo sidebar sidebar-dark accordion" id="accordionSidebar">
+           
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Inicio")">
+                <div class="sidebar-brand-icon">
+                    <i class="far fa-building"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Gonndo Hotel</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Inicio")">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Panel</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Gestion</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("Recepcion", "Gestion")">Recepción</a>
+                        <a class="collapse-item" href="@Url.Action("Salida", "Gestion")">Salida</a>
+                    </div>
+                </div>
+            </li>
+            @{
+
+                if (objeto.oTipoPersona.IdTipoPersona == 1)
+                {
+
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseamantenimiento"
+                           aria-expanded="true" aria-controls="collapseamantenimiento">
+                            <i class="fas fa-fw fa-wrench"></i>
+                            <span>Mantenimiento</span>
+                        </a>
+                        <div id="collapseamantenimiento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <a class="collapse-item" href="@Url.Action("Habitaciones", "Mantenimiento")">Habitaciones</a>
+                                <a class="collapse-item" href="@Url.Action("Categoria", "Mantenimiento")">Categoria</a>
+                                <a class="collapse-item" href="@Url.Action("Pisos", "Mantenimiento")">Pisos</a>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+
+
+
+
+
+            @{
+                if (objeto.oTipoPersona.IdTipoPersona == 1)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Usuario","Inicio")">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+                }
+            }
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Cliente","Inicio")">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Clientes</span>
+                </a>
+            </li>
+
+
+
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        
+        <div id="content-wrapper" class="d-flex flex-column">
+            
+            <div class="fondo" id="content">
+                
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                   
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                      
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@(objeto.Nombre + " " + objeto.Apellido )</span>
+                                <i class="fas fa-user-shield" style="font-size:25px;font-weight:bold"></i>
+                            </a>
+                            
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="@Url.Action("CerrarSesion","Inicio")">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Salir
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+               
+                <div class="container-fluid">
+                  
+                    @RenderBody()
+                </div>
+               
+            </div>
+         
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>&copy; Administrador - Gonndo Hotel</span>
+                    </div>
+                </div>
+            </footer>
+           
+        </div>
+       
+    </div>
+ 
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+ 
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

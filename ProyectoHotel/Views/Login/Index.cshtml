@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+    <style></style>
+    @Styles.Render("~/Content/css")
+    <style>
+        .fondo {
+            background: linear-gradient(to bottom, #004ed9, #63aeff);
+        }
+
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .login-card {
+            width: 450px; 
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .login-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+        }
+
+            .login-form input,
+            .login-form button {
+                margin-top: 15px;
+            }
+    </style>
+
+</head>
+<body class="fondo vh-100">
+    <div class="login-container">
+        <div class="card shadow login-card p-4">
+            <div class="card-body p-4 login-form">
+                <h1 class="text-gray-900 text-center">Bienvenido</h1>
+                <h3 class="text-gray-900 mb-4 text-center">Gonndo Hotel</h3>
+                <form class="user" action="@Url.Action("Index","Login")" method="post">
+                    <div class="mb-3">
+                        <input type="email" class="form-control form-control-user" name="correo" placeholder="Email" value="nicodriguez3@gmail.com">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control form-control-user" name="clave" placeholder="Password" value="1234">
+                    </div>
+                    <div class="mb-3">
+                        @{if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @ViewBag.Error
+                                </div>
+                            }
+                        }
+                    </div>
+                    <button class="btn btn-primary btn-block btn-user" type="submit">Ingresar</button>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <p class="text-primary mb-0">Gonndo Hotel &copy;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
